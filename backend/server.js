@@ -10,7 +10,16 @@ const aiRoutes = require('./routes/ai');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors({ origin: 'http://localhost:4200', credentials: true }));
+const allowedOrigins = process.env.FRONTEND_URL
+  ? ['http://localhost:4200', ...process.env.FRONTEND_URL.split(',').map((u) => u.trim())]
+  : ['http://localhost:4200'];
+app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin || allowedOrigins.some((o) => origin === o)) return cb(null, true);
+    cb(null, false);
+  },
+  credentials: true
+}));
 app.use(express.json({ limit: '10mb' }));
 
 app.use('/api/auth', authRoutes);

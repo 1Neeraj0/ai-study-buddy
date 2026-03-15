@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Flashcard, QuizQuestion } from '../models/note.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AiService {
-  private readonly API = 'http://localhost:5000/api/ai';
+  private readonly API = `${environment.apiUrl}/api/ai`;
 
   constructor(private http: HttpClient) {}
 
