@@ -71,14 +71,14 @@ import { Note } from '../../models/note.model';
                         <mat-icon>auto_awesome</mat-icon> Summary
                       </span>
                     }
-                    @if (note.flashcards?.length) {
+                    @if (note.flashcards.length) {
                       <span class="badge badge-cards">
                         <mat-icon>style</mat-icon> {{ note.flashcards.length }}
                       </span>
                     }
                   </div>
                 </div>
-                @if (note.tags?.length) {
+                @if (note.tags.length) {
                   <div class="card-tags">
                     @for (tag of note.tags | slice:0:3; track tag) {
                       <span class="tag">{{ tag }}</span>

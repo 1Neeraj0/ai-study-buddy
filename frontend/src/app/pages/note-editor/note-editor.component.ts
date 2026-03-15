@@ -167,13 +167,13 @@ import { Note } from '../../models/note.model';
                   </div>
                   <h4>Generate Flashcards</h4>
                   <p>Create study cards from your notes</p>
-                  @if (note.flashcards?.length) {
+                  @if (note.flashcards.length) {
                     <span class="tool-badge">{{ note.flashcards.length }} cards ready</span>
                   }
                 </div>
 
                 <div class="tool-card" [routerLink]="['/note', note._id, 'flashcards']"
-                     [class.disabled]="!note.flashcards?.length">
+                     [class.disabled]="!note.flashcards.length">
                   <div class="tool-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c)">
                     <mat-icon>flip</mat-icon>
                   </div>
