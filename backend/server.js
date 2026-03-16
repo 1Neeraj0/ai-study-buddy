@@ -10,23 +10,8 @@ const aiRoutes = require('./routes/ai');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const normalizeOrigin = (origin) => origin ? origin.replace(/\/$/, '') : origin;
-
-const allowedOrigins = process.env.FRONTEND_URL
-  ? ['https://ai-study-buddy-green.vercel.app', ...process.env.FRONTEND_URL.split(',').map((u) => normalizeOrigin(u.trim()))]
-  : ['https://ai-study-buddy-green.vercel.app'];
-
 app.use(cors({
-  origin: (origin, cb) => {
-    const normalizedOrigin = normalizeOrigin(origin);
-    if (!normalizedOrigin || allowedOrigins.some((o) => o === normalizedOrigin)) {
-      return cb(null, true);
-    }
-    cb(null, false);
-  },
   origin: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
