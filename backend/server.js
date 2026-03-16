@@ -13,8 +13,8 @@ const PORT = process.env.PORT || 5000;
 const normalizeOrigin = (origin) => origin ? origin.replace(/\/$/, '') : origin;
 
 const allowedOrigins = process.env.FRONTEND_URL
-  ? ['http://localhost:4200', ...process.env.FRONTEND_URL.split(',').map((u) => normalizeOrigin(u.trim()))]
-  : ['https://ai-study-buddy-frontend-kohl.vercel.app'];
+  ? ['https://ai-study-buddy-green.vercel.app', ...process.env.FRONTEND_URL.split(',').map((u) => normalizeOrigin(u.trim()))]
+  : ['https://ai-study-buddy-green.vercel.app'];
 
 app.use(cors({
   origin: (origin, cb) => {
