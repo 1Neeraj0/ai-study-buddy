@@ -10,8 +10,21 @@ const aiRoutes = require('./routes/ai');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// CORS configuration to allow your Vercel frontend
+const FRONTEND_ORIGIN = process.env.FRONTEND_URL || 'https://ai-study-buddy-green.vercel.app';
+
 app.use(cors({
-  origin: true,
+  origin: FRONTEND_ORIGIN,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
+// Ensure preflight (OPTIONS) requests also get CORS headers
+app.options('*', cors({
+  origin: FRONTEND_ORIGIN,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
