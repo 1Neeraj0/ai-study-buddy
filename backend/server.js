@@ -14,7 +14,7 @@ const normalizeOrigin = (origin) => origin ? origin.replace(/\/$/, '') : origin;
 
 const allowedOrigins = process.env.FRONTEND_URL
   ? ['http://localhost:4200', ...process.env.FRONTEND_URL.split(',').map((u) => normalizeOrigin(u.trim()))]
-  : ['http://localhost:4200'];
+  : ['https://ai-study-buddy-frontend-kohl.vercel.app'];
 
 app.use(cors({
   origin: (origin, cb) => {
