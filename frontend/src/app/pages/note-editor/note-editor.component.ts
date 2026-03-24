@@ -120,19 +120,21 @@ import { Note } from '../../models/note.model';
                 </div>
               </div>
               <div class="qa-input">
-                <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>Type your question...</mat-label>
-                  <input matInput [(ngModel)]="question"
-                         placeholder="e.g. What are the key differences between..."
-                         (keyup.enter)="askQuestion()">
-                  <mat-icon matPrefix>help_outline</mat-icon>
-                </mat-form-field>
+                <div class="qa-question-field">
+                  <span class="qa-prefix" aria-hidden="true">?</span>
+                  <input
+                    type="text"
+                    [(ngModel)]="question"
+                    placeholder="Type your question..."
+                    (keyup.enter)="askQuestion()"
+                  >
+                </div>
                 <button class="ai-btn" (click)="askQuestion()"
                         [disabled]="aiLoading || !question.trim()">
                   @if (aiLoading) {
                     <mat-spinner diameter="18"></mat-spinner>
                   } @else {
-                    <mat-icon>send</mat-icon>
+                    <span class="send-glyph" aria-hidden="true">&#9658;</span>
                   }
                 </button>
               </div>
@@ -380,11 +382,61 @@ import { Note } from '../../models/note.model';
     .qa-input {
       display: flex;
       gap: 12px;
-      align-items: flex-start;
+      align-items: center;
       margin-bottom: 24px;
     }
-    .qa-input mat-form-field { flex: 1; }
-    .qa-input .ai-btn { margin-top: 4px; height: 56px; }
+    .qa-question-field {
+      flex: 1;
+      position: relative;
+    }
+    .qa-prefix {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #eef2ff;
+      color: #4f46e5;
+      font-size: 0.82rem;
+      font-weight: 700;
+      pointer-events: none;
+    }
+    .qa-question-field input {
+      width: 100%;
+      box-sizing: border-box;
+      height: 56px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      padding: 0 16px 0 46px;
+      font-size: 0.97rem;
+      color: #111827;
+      background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .qa-question-field input:focus {
+      outline: none;
+      border-color: #6c63ff;
+      box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.15);
+    }
+    .qa-input .ai-btn {
+      height: 56px;
+      min-width: 56px;
+      justify-content: center;
+      padding: 0 18px;
+      flex-shrink: 0;
+    }
+    .send-glyph {
+      font-size: 1.05rem;
+      line-height: 1;
+      transform: translateX(1px);
+      display: inline-block;
+    }
 
     .tools-grid {
       display: grid;

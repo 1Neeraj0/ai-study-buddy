@@ -68,7 +68,8 @@ import { Note } from '../../models/note.model';
                   <div class="card-badges">
                     @if (note.summary) {
                       <span class="badge badge-ai">
-                        <mat-icon>auto_awesome</mat-icon> Summary
+                        <span class="badge-glyph" aria-hidden="true">✨</span>
+                        <span>Summary</span>
                       </span>
                     }
                     @if (note.flashcards.length) {
@@ -137,7 +138,8 @@ import { Note } from '../../models/note.model';
                 @if (creating) {
                   <mat-spinner diameter="18"></mat-spinner>
                 } @else {
-                  <mat-icon>add</mat-icon> Create Note
+                  <span class="plus-glyph" aria-hidden="true">+</span>
+                  <span>Create Note</span>
                 }
               </button>
             </div>
@@ -201,8 +203,17 @@ import { Note } from '../../models/note.model';
       box-shadow: 0 6px 24px rgba(108, 99, 255, 0.4);
     }
     .create-btn.small { padding: 10px 20px; font-size: 0.9rem; }
+    .create-btn.small {
+      min-width: 140px;
+      justify-content: center;
+    }
     .create-btn.disabled { opacity: 0.5; pointer-events: none; }
     .create-btn mat-icon { font-size: 20px; width: 20px; height: 20px; }
+    .plus-glyph {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1;
+    }
 
     .notes-grid {
       display: grid;
@@ -275,12 +286,18 @@ import { Note } from '../../models/note.model';
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 3px;
-      padding: 3px 10px;
+      gap: 5px;
+      padding: 4px 10px;
       border-radius: 20px;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 600;
       mat-icon { font-size: 12px; width: 12px; height: 12px; }
+    }
+    .badge-glyph {
+      font-size: 0.78rem;
+      line-height: 1;
+      display: inline-block;
+      transform: translateY(-0.5px);
     }
     .badge-ai {
       background: linear-gradient(135deg, #ede9fe, #e0e7ff);
