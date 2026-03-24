@@ -97,29 +97,40 @@ import { Note } from '../../models/note.model';
           <div class="dialog" (click)="$event.stopPropagation()">
             <div class="dialog-header">
               <h2>Create New Note</h2>
-              <button mat-icon-button (click)="showCreateDialog = false">
-                <mat-icon>close</mat-icon>
+              <button class="icon-close" type="button" aria-label="Close dialog" (click)="showCreateDialog = false">
+                &times;
               </button>
             </div>
             <div class="dialog-body">
-              <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Title</mat-label>
-                <input matInput [(ngModel)]="newTitle" placeholder="e.g. Physics Chapter 3">
-                <mat-icon matPrefix>title</mat-icon>
-              </mat-form-field>
-              <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Content</mat-label>
-                <textarea matInput [(ngModel)]="newContent" rows="8"
-                          placeholder="Paste or type your study notes here..."></textarea>
-              </mat-form-field>
-              <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Tags (comma separated)</mat-label>
-                <input matInput [(ngModel)]="newTags" placeholder="e.g. physics, exam, chapter3">
-                <mat-icon matPrefix>label</mat-icon>
-              </mat-form-field>
+              <label class="field-label" for="note-title">Title</label>
+              <input
+                id="note-title"
+                class="text-input"
+                type="text"
+                [(ngModel)]="newTitle"
+                placeholder="e.g. Physics Chapter 3"
+              >
+
+              <label class="field-label" for="note-content">Content</label>
+              <textarea
+                id="note-content"
+                class="text-input text-area"
+                [(ngModel)]="newContent"
+                rows="8"
+                placeholder="Paste or type your study notes here..."
+              ></textarea>
+
+              <label class="field-label" for="note-tags">Tags (comma separated)</label>
+              <input
+                id="note-tags"
+                class="text-input"
+                type="text"
+                [(ngModel)]="newTags"
+                placeholder="e.g. physics, exam, chapter3"
+              >
             </div>
             <div class="dialog-actions">
-              <button mat-button (click)="showCreateDialog = false">Cancel</button>
+              <button class="btn-secondary" type="button" (click)="showCreateDialog = false">Cancel</button>
               <button class="create-btn small"
                       [class.disabled]="!newTitle.trim() || !newContent.trim() || creating"
                       (click)="createNote()">
@@ -339,32 +350,113 @@ import { Note } from '../../models/note.model';
     }
     .dialog {
       width: 100%;
-      max-width: 560px;
+      max-width: 620px;
       background: white;
-      border-radius: 24px;
-      box-shadow: var(--shadow-lg);
+      border-radius: 22px;
+      box-shadow: 0 24px 56px rgba(15, 23, 42, 0.2);
+      border: 1px solid rgba(99, 102, 241, 0.12);
       animation: scaleIn 0.25s ease-out;
     }
     .dialog-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 24px 28px 0;
+      padding: 24px 28px 14px;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
     }
     .dialog-header h2 {
       font-family: 'Poppins', sans-serif;
       font-weight: 700;
       font-size: 1.3rem;
       margin: 0;
+      color: #121826;
     }
-    .dialog-body { padding: 24px 28px; }
+    .icon-close {
+      width: 34px;
+      height: 34px;
+      border: none;
+      border-radius: 50%;
+      background: #f3f4f6;
+      color: #374151;
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .icon-close:hover {
+      background: #e5e7eb;
+      transform: scale(1.05);
+    }
+    .dialog-body {
+      padding: 20px 28px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .field-label {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #374151;
+      margin-top: 2px;
+    }
+    .text-input {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      font-family: 'Inter', sans-serif;
+      color: #111827;
+      background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      resize: vertical;
+    }
+    .text-input:focus {
+      outline: none;
+      border-color: #6c63ff;
+      box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.15);
+    }
+    .text-area {
+      min-height: 160px;
+      line-height: 1.6;
+    }
     .dialog-actions {
-      padding: 0 28px 24px;
+      padding: 16px 28px 24px;
       display: flex;
       justify-content: flex-end;
       gap: 12px;
+      border-top: 1px solid rgba(15, 23, 42, 0.08);
+    }
+    .btn-secondary {
+      border: 1px solid #d1d5db;
+      background: #fff;
+      color: #374151;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover {
+      border-color: #9ca3af;
+      background: #f9fafb;
     }
     .full-width { width: 100%; }
+
+    @media (max-width: 640px) {
+      .dialog {
+        max-width: 96vw;
+        border-radius: 18px;
+      }
+      .dialog-header,
+      .dialog-body,
+      .dialog-actions {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+    }
 
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
